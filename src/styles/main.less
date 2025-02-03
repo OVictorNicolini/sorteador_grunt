@@ -1,0 +1,68 @@
+@fontPrincipal: Roboto, sans-serif;
+@fonteTitulo: Lobster, cursive;
+@corTexto: #fff;
+@corFundo: #eb3b5a;
+
+//ESTILIZAÇÃO DO BOTÃO
+@corTextoBotao: #000;
+@corFundoBotao: #f7b731;
+@corHoverEBorda: #f7d07d;
+
+
+body {
+    background-color: @corFundo;
+    font-family: @fontPrincipal;
+    color: @corTexto;
+
+}
+
+h1 {
+    font-family: @fonteTitulo;
+    font-size: 3em;
+}
+
+main {
+    max-width: 960px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    font-size: 2em;
+    text-align: center;
+}
+
+button {
+    color: @corTextoBotao;
+    padding: 16px;
+    font-size: 1.3em;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 16px;
+    background-color: @corFundoBotao;
+    border-radius: 50px;
+    border: 5px solid;
+    border-color: @corHoverEBorda;
+    font-family: @fontPrincipal;
+
+    &:hover {
+        background-color: @corHoverEBorda;
+        border-color: @corFundoBotao;
+    }
+}
+
+input {
+    display: block;
+    margin: 16px auto 0;
+    font-size: 2em;
+    max-width: 120px;
+    border: none;
+    background-color: transparent;
+    text-align: center;
+    color: #fff;
+    border-bottom: 16px solid #fff;
+}
+
+//Remove as setas de incremento e decremento do input number
+input[type="number"]::-webkit-inner-spin-button {
+    appearance: none;
+}
+
