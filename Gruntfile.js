@@ -36,7 +36,7 @@ module.exports = function(grunt) {
                         },
                         {
                             match: 'ENDERECO_DO_JS',//nome do padrão a ser substituído
-                            replacement: '..src/scripts/main.js' //valor que substituirá o padrão
+                            replacement: '../src/scripts/main.js' //valor que substituirá o padrão
                         }
                     ]
                 },
@@ -54,6 +54,10 @@ module.exports = function(grunt) {
                         {
                             match: 'ENDERECO_DO_CSS',//nome do padrão a ser substituído
                             replacement: '../styles/main.min.css' //valor que substituirá o padrão
+                        },
+                        {
+                            match: 'ENDERECO_DO_JS',//nome do padrão a ser substituído
+                            replacement: './scripts/main.min.js' //valor que substituirá o padrão
                         }
                     ]
                 },
@@ -77,7 +81,7 @@ module.exports = function(grunt) {
                 }
             }
         },
-        uglify: {
+        uglify: { //minifica arquivos js
             options: {
                 mangle: true,
                 compress: true,
@@ -85,7 +89,7 @@ module.exports = function(grunt) {
             },
             my_target: {
                 files: {
-                    'dist/scripts/main.min.js': ['src/scripts/main.js'] //arquivo de destino: arquivo de origem
+                    'dist/scripts/main.min.js': 'src/scripts/main.js' //arquivo de destino: arquivo de origem
                 }
             }
         },
