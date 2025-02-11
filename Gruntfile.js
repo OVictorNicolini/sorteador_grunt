@@ -3,10 +3,10 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'), //leitura do arquivo package.json
         less: { //compila arquivos less em css
             development:{
-            files: {
-                'dev/styles/main.css': 'src/styles/main.less' //arquivo de destino: arquivo de origem
-                }
-            },
+                files: {
+                    'dev/styles/main.css': 'src/styles/main.less' //arquivo de destino: arquivo de origem
+                    }
+                },
             production:{
                 options: {
                     compress: true, //comprime o arquivo
@@ -16,57 +16,51 @@ module.exports = function(grunt) {
                 }
             }
         },
-        watch: { //observa alterações em arquivos e executa tarefas
+        watch: { //observa alterações nos arquivos
             less: {
-                files: ['src/styles/**/*.less'], //dois asteriscos para pegar todos os arquivos dentro da pasta e um asterisco para pegar todos os arquivos com a extensão especificada
+                files: ['src/styles/**/*.less'], //arquivos a serem observados
                 tasks: ['less:development'] //tarefa a ser executada
             },
             html: {
-                files: ['src/index.html'], //arquivo a ser observado
+                files: ['src/index.html'], //arquivos a serem observados
                 tasks: ['replace:dev'] //tarefa a ser executada
-            }  
+            }
         },
-        replace: { //substitui um padrão por outro
+        replace: { //substitui strings nos arquivos
             dev: {
                 options: {
                     patterns: [
                         {
-                            match: 'ENDERECO_DO_CSS',//nome do padrão a ser substituído
-                            replacement: './styles/main.css' //valor que substituirá o padrão
+                            match: 'ENDERECO_DO_CSS', //string a ser substituída
+                            replacement: './styles/main.css' //string de substituição
                         },
                         {
-                            match: 'ENDERECO_DO_JS',//nome do padrão a ser substituído
-                            replacement: '../src/scripts/main.js' //valor que substituirá o padrão
+                            match: 'ENDERECO_DO_JS', //string a ser substituída
+                            replacement: '../src/scripts/main.js' //string de substituição
                         }
                     ]
                 },
                 files: [
-                    {
-                        expand: true, //habilita o uso de caracteres curinga
-                        flatten: true, //remove a estrutura de pastas
-                        src: ['src/index.html'], //arquivo de origem
-                        dest: 'dev/'} //arquivo de destino
+                    {expand: true, 
+                        flatten: true, 
+                        src: ['src/index.html'], 
+                        dest: 'dev/'} //arquivo de origem e destino
                 ]
             },
             dist: {
                 options: {
                     patterns: [
                         {
-                            match: 'ENDERECO_DO_CSS',//nome do padrão a ser substituído
-                            replacement: '../styles/main.min.css' //valor que substituirá o padrão
-                        },
-                        {
-                            match: 'ENDERECO_DO_JS',//nome do padrão a ser substituído
-                            replacement: './scripts/main.min.js' //valor que substituirá o padrão
+                            match: 'ENDERECO_DO_CSS', //string a ser substituída
+                            replacement: './styles/main.min.css' //string de substituição
                         }
                     ]
                 },
                 files: [
-                    {
-                        expand: true, //habilita o uso de caracteres curinga
-                        flatten: true, //remove a estrutura de pastas
+                    {expand: true, 
+                        flatten: true, //não cria subpastas
                         src: ['prebuild/index.html'], //arquivo de origem
-                        dest: 'dist/'} //arquivo de destino
+                        dest: 'dist/'} //arquivo de origem e destino
                 ]
             }
         },
@@ -81,19 +75,7 @@ module.exports = function(grunt) {
                 }
             }
         },
-        uglify: { //minifica arquivos js
-            options: {
-                mangle: true,
-                compress: true,
-                sourceMap: true
-            },
-            my_target: {
-                files: {
-                    'dist/scripts/main.min.js': 'src/scripts/main.js' //arquivo de destino: arquivo de origem
-                }
-            }
-        },
-        clean: ['prebuild'] //remove arquivos
+        clean: ['prebuild'] //apaga a pasta prebuild
     })
 
     grunt.loadNpmTasks('grunt-contrib-less'); //carrega o plugin less
@@ -101,8 +83,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-replace'); //carrega o plugin replace
     grunt.loadNpmTasks('grunt-contrib-htmlmin'); //carrega o plugin htmlmin
     grunt.loadNpmTasks('grunt-contrib-clean'); //carrega o plugin clean
-    grunt.loadNpmTasks('grunt-contrib-uglify'); //carrega o plugin uglify
 
     grunt.registerTask('default', ['watch']); //tarefa padrão
-    grunt.registerTask('build', ['less:production', 'htmlmin:dist', 'replace:dist', 'uglify', 'clean']); //tarefa de build
+    grunt.registerTask('build', ['less:production','htmlmin:dist','replace:dist','clean']); //tarefa de build
 }
