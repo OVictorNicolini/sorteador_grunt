@@ -7,7 +7,10 @@ document.addEventListener('DOMContentLoaded', function() { //adiciona um evento 
         let numeroAleatorio = Math.random() * numeroMaximo; //gera um número aleatório
         numeroAleatorio = Math.floor(numeroAleatorio + 1); //arredonda o número para baixo
 
-        document.getElementById('resultado-valor').innerHTML = numeroAleatorio;//exibe o número
+        document.getElementById('numero-sorteado').innerHTML = numeroAleatorio;//exibe o número
+        document.querySelector('.resultado').style.display = 'block'; //exibe o resultado
+
+        // querySelector: seleciona o primeiro elemento que corresponde ao seletor
     });
     ;}
 );
