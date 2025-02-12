@@ -43,7 +43,7 @@ module.exports = function(grunt) {
                 files: [
                     {expand: true, 
                         flatten: true, 
-                        src: ['src/index.html'], 
+                        src: ['src/index.html'], //arquivo de origem
                         dest: 'dev/'} //arquivo de origem e destino
                 ]
             },
@@ -53,6 +53,10 @@ module.exports = function(grunt) {
                         {
                             match: 'ENDERECO_DO_CSS', //string a ser substituída
                             replacement: './styles/main.min.css' //string de substituição
+                        },
+                        {
+                            match: 'ENDERECO_DO_JS', //string a ser substituída
+                            replacement: './scripts/main.min.js' //string de substituição
                         }
                     ]
                 },
@@ -75,7 +79,14 @@ module.exports = function(grunt) {
                 }
             }
         },
-        clean: ['prebuild'] //apaga a pasta prebuild
+        clean: ['prebuild'], //apaga a pasta prebuild
+        uglify: { //minifica arquivos js
+            target: {
+                files: {
+                    'dist/scripts/main.min.js': ['src/scripts/main.js'] //arquivo de destino: arquivo de origem
+                }
+            }
+        }
     })
 
     grunt.loadNpmTasks('grunt-contrib-less'); //carrega o plugin less
@@ -83,7 +94,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-replace'); //carrega o plugin replace
     grunt.loadNpmTasks('grunt-contrib-htmlmin'); //carrega o plugin htmlmin
     grunt.loadNpmTasks('grunt-contrib-clean'); //carrega o plugin clean
+    grunt.loadNpmTasks('grunt-contrib-uglify'); //carrega o plugin uglify
 
     grunt.registerTask('default', ['watch']); //tarefa padrão
-    grunt.registerTask('build', ['less:production','htmlmin:dist','replace:dist','clean']); //tarefa de build
+    grunt.registerTask('build', ['less:production','htmlmin:dist','replace:dist','clean', 'uglify']); //tarefa de build
 }
